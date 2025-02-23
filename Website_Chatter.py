@@ -122,4 +122,5 @@ def app():
             except Exception as e:
                 st.error(f"Error generating response: {e}")
 
-app()                
+if __name__ == "__main__":
+    app()
