@@ -136,4 +136,5 @@ def app():
         else:
             st.error("⚠️ Please upload a valid PDF file to start the chat.")
 
-app()
+if __name__ == "__main__":
+    app()
