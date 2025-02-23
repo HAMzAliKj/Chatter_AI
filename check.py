@@ -1,4 +1,3 @@
-
 from youtube_transcript_api import YouTubeTranscriptApi as yt
 from youtube_transcript_api._errors import NoTranscriptFound
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -12,10 +11,26 @@ from langchain_community.retrievers import TFIDFRetriever
 from langchain.chains.history_aware_retriever import create_history_aware_retriever
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
+import requests
 
-# Load environment variables
 
-def app():
+def apps():
+    # Backend URL (replace with your Render backend URL)
+    BACKEND_URL = "https://web-production-4212.up.railway.app/transcript"
+
+    def fetch_transcript(video_id):
+        try:
+            # Call the backend to fetch the transcript
+            response = requests.get(BACKEND_URL, params={"video_id": video_id})
+            if response.status_code == 200:
+                return response.json()  # Return the transcript
+            else:
+                st.error(f"Failed to fetch transcript: {response.json().get('error')}")
+                return None
+        except Exception as e:
+            st.error(f"Error connecting to backend: {e}")
+            return None
+
     # Initialize Langchain LLM with API key
     llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", api_key='AIzaSyBT7otzDr-MQ8ZS1JCP4Q0hTxnKHQ2ZDf0')
 
@@ -64,25 +79,13 @@ def app():
         st.session_state.video_id = video_id
 
         if video_id:
-            try:
-                transcripts = yt.list_transcripts(video_id)
-
-                # Prioritize manually created transcripts
-                manual_transcripts = [t for t in transcripts if not t.is_generated]
-                if manual_transcripts:
-                    transcript = manual_transcripts[0]
-                else:
-                    # Fall back to auto-generated transcript
-                    generated_transcripts = [t for t in transcripts if t.is_generated]
-                    if generated_transcripts:
-                        transcript = generated_transcripts[0]
-                    else:
-                        raise NoTranscriptFound(video_id)
-
-                # Fetch and store transcript
-                st.session_state.transcript = transcript.fetch()
+            # Fetch transcript from the backend
+            transcript = fetch_transcript(video_id)
+            if transcript:
+                st.session_state.transcript = transcript
                 st.session_state.last_url = full_video_url
 
+                # Process transcript
                 context = ''
                 for con in st.session_state.transcript:
                     text = con['text']
@@ -94,11 +97,8 @@ def app():
                 page = r_splitter.split_documents(doc_store)
                 st.session_state.retriever = TFIDFRetriever.from_documents(page)
                 st.session_state.processed = True
-
-            except NoTranscriptFound:
-                st.error("No transcript available for this video")
-            except Exception as e:
-                st.error(f"Error fetching transcript: {str(e)}")
+            else:
+                st.error("Failed to fetch transcript.")
 
     if not st.session_state.summary_generated:
         button = st.button("Summary")
@@ -168,5 +168,5 @@ def app():
     except Exception as e:
         st.write(f"Error: {e}")
 
-
-app()
+if __name__ == "__main__":
+    apps()
