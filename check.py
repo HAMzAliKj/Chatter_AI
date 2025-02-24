@@ -16,7 +16,7 @@ import requests
 
 def apps():
     # Backend URL (replace with your Render backend URL)
-    BACKEND_URL = "https://web-production-4212.up.railway.app/transcript"
+    BACKEND_URL = "https://web-production-29de.up.railway.app/transcript"
 
     def fetch_transcript(video_id):
         try:
