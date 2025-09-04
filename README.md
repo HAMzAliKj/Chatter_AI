@@ -1,41 +1,41 @@
-Chatter with Websites | Web Chatbot
+🌐 Chatter with Websites | Web Chatbot
 
 A lightweight toolkit to chat with any website — ask questions, get summaries, and explore web content using an LLM + RAG pipeline powered by scraped text.
 
-What It Does
+🔹 What It Does
 
-Fetches and scrapes website content (HTML/text).
+🕸️ Scrapes website content (HTML/text).
 
-Parses and cleans the scraped text (e.g., remove boilerplate, extract relevant sections).
+🧹 Cleans & parses text (removes boilerplate, keeps relevant sections).
 
-Splits and embeds content chunks into a vector store.
+✂️ Splits & embeds content chunks into a vector store.
 
-Uses Retrieval-Augmented Generation (RAG) to answer user questions with context from the scraped content.
+🤖 RAG-powered answers — user questions are answered with context from the website.
 
-Produces short summaries, timestamps (or section markers), and direct quotes.
+📝 Summarizes content (short, medium, long).
 
-Designed for local execution or easy deployment (Procfile or Docker included).
+⚡ Easy to run locally or deploy (Procfile/Docker supported).
 
-Key Features
+🌟 Key Features
 
-Ask anything about a webpage (topics, details, quotes, sections).
+✅ Ask anything about a webpage (topics, details, quotes, sections).
 
-Automatic summarization (short, medium, long formats).
+✅ Automatic summarization (short, medium, long).
 
-RAG-backed answers — responses cite the scraped context.
+✅ RAG-backed answers that cite scraped text.
 
-Extensible — switch scraping strategies, LLMs, embedding models, or vector stores easily.
+✅ Extensible — swap scrapers, LLMs, embeddings, or vector DBs easily.
 
-High-Level Architecture
+🏗️ High-Level Architecture
 
-Web Scraper → fetch and clean HTML/text from given URL.
+🌍 Web Scraper → fetch & clean website text.
 
-Text Parser → convert content into structured chunks (maintaining headings/timestamps).
+📑 Text Splitter → chunk content (keep headings/sections).
 
-Embeddings → convert chunks to vectors (via OpenAI or other embedding models).
+🔢 Embeddings → convert chunks into vectors (OpenAI or other models).
 
-Vector Store → store and index (e.g., FAISS, Chroma, Pinecone).
+📦 Vector Store → store & search (FAISS, Chroma, Pinecone, etc.).
 
-Retriever + LLM → retrieve top-k relevant chunks and feed them into LLM for RAG synthesis.
+🤝 Retriever + LLM → retrieve top-k chunks, feed into LLM (RAG).
 
-Output → answer, summary, and highlighted snippets with source context.
+💡 Output → concise answer + summary + quoted context.
