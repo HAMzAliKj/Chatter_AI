@@ -11,7 +11,16 @@ from langchain_core.prompts import MessagesPlaceholder
 from langchain.chains.history_aware_retriever import create_history_aware_retriever
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
+from dotenv import load_dotenv
+from langchain_groq import ChatGroq
+import main
 
+load_dotenv()
+import os
+
+
+firecrawlapi = os.getenv("firecrawl")
+groqapi = os.getenv("groqapi")
 
 def app():
     st.title("Chat With Website URLs")
@@ -28,7 +37,9 @@ def app():
         st.session_state.processed = False   
 
     url = st.text_input("Enter Website Url To Chat")
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", api_key='AIzaSyC2rQzwSsl4a-sZnHWK_Kop7tlb53c3vRI')
+
+
+    llm = main.llm
 
     if url and url != st.session_state.last_processed_url:
         st.session_state.retriever = ""
@@ -39,13 +50,14 @@ def app():
     if url and st.session_state.processed == False:
         st.write("LLM Initialized")
         website_url = url
-        st.session_state.appi_key = "fc-ad97483324e54c63812117ce84cf2a6b"
+        st.session_state.appi_key = firecrawlapi
         st.session_state.app = FirecrawlApp(api_key=st.session_state.appi_key)
 
         try:
             scrape_status = st.session_state.app.scrape_url(website_url)
             st.session_state.context = ""
-            st.session_state.context = scrape_status['markdown']
+            st.session_state.context = scrape_status.markdown
+
             r_splitter = RecursiveCharacterTextSplitter(chunk_size=50000, chunk_overlap=1500)
             pages = r_splitter.split_text(st.session_state.context)
             st.session_state.retriever = TFIDFRetriever.from_texts(pages)
