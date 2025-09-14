@@ -229,6 +229,4 @@ websockets==14.1
 wrapt==1.17.2
 wsproto==1.2.0
 yarl==1.18.3
-youtube-transcript-api==0.6.3
-yt-dlp==2025.1.26
 zipp==3.21.0
