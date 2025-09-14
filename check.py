@@ -1,6 +1,4 @@
 import http
-from youtube_transcript_api import YouTubeTranscriptApi 
-from youtube_transcript_api._errors import NoTranscriptFound, TranscriptsDisabled
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage, AIMessage
@@ -188,3 +186,4 @@ def apps():
 
 if __name__ == "__main__":
     apps()
+
