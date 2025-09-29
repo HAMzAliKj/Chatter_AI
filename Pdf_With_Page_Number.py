@@ -12,7 +12,6 @@ from langchain.chains.history_aware_retriever import create_history_aware_retrie
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
 # from PyPDF2 import PdfReader
-from langchain.document_loaders import PyPDFLoader
 from langchain_groq import ChatGroq 
 import main
 
@@ -347,3 +346,4 @@ def app():
 
 if __name__ == "__main__":
     app()
+
