@@ -11,12 +11,17 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
 import main
 from urllib.parse import urlparse, parse_qs
+from langchain_google_genai import ChatGoogleGenerativeAI
+from dotenv import load_dotenv
+import os
 
+api_key = os.getenv("geminiapi")
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", api_key=api_key)
 
 
 def apps():
     # Initialize Langchain LLM
-    llm = main.llm
+    # llm = main.llm
 
     # Initialize session state variables
     if 'chat_history' not in st.session_state:
@@ -186,4 +191,5 @@ def apps():
 
 if __name__ == "__main__":
     apps()
+
 
