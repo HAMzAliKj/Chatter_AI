@@ -14,6 +14,12 @@ from langchain.chains import create_retrieval_chain
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 import main
+from langchain_google_genai import ChatGoogleGenerativeAI
+from dotenv import load_dotenv
+import os
+
+api_key = os.getenv("geminiapi")
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", api_key=api_key)
 
 load_dotenv()
 import os
@@ -39,7 +45,7 @@ def app():
     url = st.text_input("Enter Website Url To Chat")
 
 
-    llm = main.llm
+    # llm = main.llm
 
     if url and url != st.session_state.last_processed_url:
         st.session_state.retriever = ""
@@ -136,3 +142,4 @@ def app():
 
 if __name__ == "__main__":
     app()
+
