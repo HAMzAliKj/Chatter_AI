@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import os
 
 api_key = os.getenv("geminiapi")
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", api_key=api_key)
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", api_key=api_key)
 
 def main():
     # Page config
@@ -106,3 +106,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
