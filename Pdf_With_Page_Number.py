@@ -14,6 +14,12 @@ from langchain.chains import create_retrieval_chain
 # from PyPDF2 import PdfReader
 from langchain_groq import ChatGroq 
 import main
+from langchain_google_genai import ChatGoogleGenerativeAI
+from dotenv import load_dotenv
+import os
+
+api_key = os.getenv("geminiapi")
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", api_key=api_ke
 
 def app():
     # Custom CSS for better UI
@@ -114,7 +120,7 @@ def app():
     # To open GitHub Copilot Chat:
     # Windows/Linux: Ctrl + Shift + I
     # Mac: Cmd + Shift + I
-    llm = main.llm
+    # llm = main.llm
 
     # Enhanced Upload Section
     st.markdown("""
@@ -346,4 +352,5 @@ def app():
 
 if __name__ == "__main__":
     app()
+
 
