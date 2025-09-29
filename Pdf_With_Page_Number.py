@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 import os
 
 api_key = os.getenv("geminiapi")
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", api_key=api_ke
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", api_key=api_key)
 
 def app():
     # Custom CSS for better UI
@@ -352,5 +352,6 @@ def app():
 
 if __name__ == "__main__":
     app()
+
 
 
